@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Shop
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="view_cart()" color="primary_b">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="card-background-page">
+  <ion-card (tap)="open('Uniforms')">
+    <img src="assets/img/school_uniforms.png" />
+  </ion-card>
+  <ion-card (tap)="open('Bags')">
+    <img src="assets/img/school_bags.png" />
+  </ion-card>
+  <ion-card (tap)="open('Stationary')">
+    <img src="assets/img/stationary.png" />
+  </ion-card>
+  <ion-card (tap)="open('Accessories')">
+    <img src="assets/img/accessories.png" />
+  </ion-card>
+</ion-content>
