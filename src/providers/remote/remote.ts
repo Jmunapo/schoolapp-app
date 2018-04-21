@@ -67,16 +67,11 @@ export class RemoteProvider {
   }
 
   get_schools() {
-    return this.http.get(this.info.get_all_schools)
-    .pipe(map(v => {
-        let data = JSON.parse(JSON.stringify(v));
-        let schools = [];
-        for (let post of data) {
-          let school = { id: post.id, name: post.title.rendered };
-          schools.push(school);
-        }
-        return schools;
-      }));
+    return this.http.get(this.info.get_all_schools).pipe(map((res: any) => res));
+    // .pipe(map(schools => {
+    //   console.log(schools);
+    //     return schools;
+    //   }));
   }
 
   getSchool(id) {

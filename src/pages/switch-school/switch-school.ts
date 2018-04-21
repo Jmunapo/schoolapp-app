@@ -53,40 +53,28 @@ export class SwitchSchoolPage {
   //load all schools from the info server
   load_all_schools(){
     this.remote.get_schools()
-      .subscribe(val => {
-        if (val) {
-          for (let xul of val) {
-            let id = xul.id;
-            let name = xul.name;
-            this.remote.get_meta(id)
-              .subscribe(v => {
-                console.log(v)
-                this.remote.get_thumbnail(Number(v.thumbnail))
-                  .subscribe(thumb=>{
-                    if(thumb){
-                      let thumbnail_url = JSON.parse(JSON.stringify(thumb)).source_url;
-                      this.all_schools.push(save_data(thumbnail_url))
-
-                    }else{
-                      let thumbnail_url = "assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg";
-                      this.all_schools.push(save_data(thumbnail_url))
-                    }
-                  },err=>{
-                    let thumbnail_url = "assets/img/z0PNT4h8SCGyxTXhyf3Q_photo_2017-08-31_08-47-35.jpg";
-                    this.all_schools.push(save_data(thumbnail_url))
-                  })
-                function save_data(thumbnail_url){
-                  v['id'] = id;
-                  v['name'] = name;
-                  v['thumbnail'] = thumbnail_url;
-                  console.log(v);
-                  return v;
-                }
-              },
-              err => {
-                alert(JSON.stringify(err));
-              })
-          }
+      .subscribe(schools => {
+        if (schools) {
+          const xuls = schools.map(xul => {
+            const meta = xul['school-meta'];
+            let schoolArr = {
+              id: xul.id,
+              name: meta['school-name'][0],
+              city: meta['school-city'][0],
+              address: meta['school-address'][0],
+              cell: meta['school-cell'][0],
+              email: meta['school-email'][0],
+              level: meta['school-level'][0],
+              location: meta['school-location'][0],
+              tel: meta['school-tel'][0],
+              domain: meta['school-domain'][0],
+              motto: meta['school-motto'][0],
+              logo: meta['school-logo'][0]
+            };
+            return schoolArr;
+          });
+          this.all_schools = xuls;
+          console.log(this.all_schools);
         }
       },
       err => {
@@ -197,7 +185,7 @@ export class SwitchSchoolPage {
       spinner: 'bubbles',
     });
     loader.present();
-    let subdomain = arr.subdomain;
+    let subdomain = arr.domain;
     this.remote.user_get_nonce(subdomain).subscribe(val => {
       if (val) {
         let nonce = (JSON.parse(val)).nonce;

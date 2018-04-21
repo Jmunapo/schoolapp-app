@@ -11,7 +11,6 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { Info } from './app.info';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RemoteProvider } from '../providers/remote/remote';
@@ -31,12 +30,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SwitchSchoolPage } from '../pages/switch-school/switch-school';
 import { OneSignal } from '@ionic-native/onesignal';
 import { ViewPage } from '../pages/view/view';
-import { ShopCategoryPage } from '../pages/shop-category/shop-category';
 import { WoocommerceProvider } from '../providers/woocommerce/woocommerce';
-import { ShopProductDetailPage } from '../pages/shop-product-detail/shop-product-detail';
-import { ShopCartPage } from '../pages/shop-cart/shop-cart';
-import { ShopCheckoutPage } from '../pages/shop-checkout/shop-checkout';
 import { AboutPage } from '../pages/about/about';
+import { CommonsProvider } from '../providers/commons/commons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // export function WpApiLoaderFactory(http: Http, info: Info) {
 //   return new WpApiStaticLoader(http, 'http://info.diamond.school/wp-json/');
@@ -51,10 +48,6 @@ import { AboutPage } from '../pages/about/about';
     ShopPage,
     TabsPage,
     LoginPage,
-    ShopCategoryPage,
-    ShopProductDetailPage,
-    ShopCartPage,
-    ShopCheckoutPage,
     RegisterPage,
     AccountPage,
     SwitchSchoolPage,
@@ -64,6 +57,7 @@ import { AboutPage } from '../pages/about/about';
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     // WpApiModule.forRoot({
     //   provide: WpApiLoader,
     //   useFactory: (WpApiLoaderFactory),
@@ -71,7 +65,18 @@ import { AboutPage } from '../pages/about/about';
 
     // }),
     PipesModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      platforms: {
+        ios: {
+          tabsHideOnSubPages: 'true',
+          swipeBackEnabled: 'true'
+        },
+        android: {
+          tabsHideOnSubPages: 'true',
+          swipeBackEnabled: 'true'
+        }
+      }
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -82,10 +87,6 @@ import { AboutPage } from '../pages/about/about';
     HomePage,
     ShopPage,
     LoginPage,
-    ShopCategoryPage,
-    ShopProductDetailPage,
-    ShopCartPage,
-    ShopCheckoutPage,
     RegisterPage,
     ModalPage,
     TabsPage,
@@ -101,7 +102,8 @@ import { AboutPage } from '../pages/about/about';
     DatabaseProvider,
     Info,
     OneSignal,
-    WoocommerceProvider
+    WoocommerceProvider,
+    CommonsProvider
   ]
 })
 export class AppModule {}

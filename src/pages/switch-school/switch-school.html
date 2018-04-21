@@ -31,7 +31,7 @@
       <div *ngIf="instorage">
         <ion-item *ngFor="let xul of saved_schools">
           <ion-thumbnail item-start>
-            <img [src]=xul.thumbnail>
+            <img [src]=xul.logo onerror="this.src='assets/img/placeholder.png';">
           </ion-thumbnail>
           <h2 [innerHTML]="xul.name" id="{{xul.id}}"></h2>
           <p [innerHTML]="xul.location"></p>
@@ -54,7 +54,6 @@
       </div>
       <div *ngIf="!instorage" padding>
         <ion-card>
-        
           <ion-card-header>
             <h1 style="text-align: center">
               <ion-icon name="filing"></ion-icon>
@@ -68,7 +67,7 @@
     <ion-list *ngSwitchCase="'all'">
       <ion-item *ngFor="let xul of all_schools">
         <ion-thumbnail item-start>
-          <img [src]=xul.thumbnail>
+          <img [src]=xul.logo onerror="this.src='assets/img/placeholder.png';">
         </ion-thumbnail>
         <h2 [innerHTML]="xul.name" id="{{xul.id}}"></h2>
         <p [innerHTML]="xul.location"></p>
@@ -77,7 +76,7 @@
           <ion-col col-12>
             <button ion-button color="primary" clear small icon-start (click)="add_my_school(xul)">
               <ion-icon name='star'></ion-icon>
-               Add to my List
+               Add List
             </button>
           </ion-col>
         </ion-row>

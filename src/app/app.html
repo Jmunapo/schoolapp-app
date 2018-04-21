@@ -15,7 +15,7 @@
     <ion-list >
       <ion-item >
         <ion-thumbnail item-left>
-          <img [src]=selected_school.thumbnail />
+          <img [src]=selected_school.logo onerror="this.src='assets/img/placeholder.png';" />
         </ion-thumbnail>
         <h3> {{selected_school.name}} </h3>
         <h4> {{selected_school.level}} </h4>

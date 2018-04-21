@@ -6,6 +6,7 @@ import { ModalPage } from '../modal/modal';
 import { DatabaseProvider } from '../../providers/database/database';
 import { ViewPage } from '../view/view';
 import { Events } from 'ionic-angular/util/events';
+import { CommonsProvider } from '../../providers/commons/commons';
 
 @Component({
   selector: 'page-mail',
@@ -20,16 +21,16 @@ export class MailPage {
 
   constructor(
     public event: Events,
-    public database: DatabaseProvider,
+    public commons: CommonsProvider,
     public modal: ModalController,
     public remote: RemoteProvider, 
     public navCtrl: NavController) {
   }
   ngOnInit() {
-    this.database.getData('selected_school').then(v => {
+    this.commons.getSelectedSchool().then(v => {
       if (v) {
         console.log(v);
-        this.subdomain = v.subdomain;
+        this.subdomain = v.domain;
         this.selected = v.name;
         this.load_messages();
       }
@@ -40,7 +41,7 @@ export class MailPage {
   }
 
   load_messages(){
-    this.database.getData(this.subdomain + '_groups').then(val => {
+    this.commons.getSavedGroups(this.subdomain).then(val => {
       console.log(val);
       if (!val) {
         this.add_messages();
@@ -51,7 +52,8 @@ export class MailPage {
       }
     });
     this.not_found = true;
-    this.database.getData(this.subdomain + '_messages').then(msg=>{
+    this.commons.getSavedmessages(this.subdomain).then(msg=>{
+      console.log(msg)
       if(msg){
         this.my_messages = msg.reverse();
         this.not_found = false;
@@ -72,7 +74,7 @@ export class MailPage {
         //this.event.publish('message_changed');
         console.log(data);
       }
-    })
+    });
   }
   open_inbox(arr, name) {
     this.navCtrl.push(ViewPage, {

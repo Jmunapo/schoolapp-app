@@ -42,7 +42,7 @@ export class MyApp {
     event.subscribe('selected_school', data => {
       this.selected_school = data;
       this.sidemenu_reload(data);
-      this.reload_posts(data.subdomain);
+      this.reload_posts(data.domain);
     });
     event.subscribe('message_changed', () => {
       this.navCtrl.setRoot(MyApp);

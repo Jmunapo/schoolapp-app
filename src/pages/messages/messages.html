@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Messages</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-fab top right edge>
+    <button ion-fab color="primary" mini (click)="addGroup($event)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  <messages *ngFor="let group of groups" [title]="group.label" [subdomain]=subdomain [group]=group></messages>
+</ion-content>

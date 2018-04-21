@@ -66,6 +66,12 @@
       </ion-fab>
     </ion-list>
     <ion-list *ngSwitchCase="'events'">
+      <ion-fab top right edge class="vCalendar">
+        <button ion-fab color="primary" mini (click)="viewOnCalendar($event)">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </button>
+      </ion-fab>
+      <calendar-view></calendar-view>
       <ion-item *ngFor="let event of events">
         <h2 [innerHTML]="event.title.rendered"></h2>
         <p [innerHTML]="event.excerpt.rendered"></p>

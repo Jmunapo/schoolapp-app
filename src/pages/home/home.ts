@@ -131,4 +131,8 @@ export class HomePage {
       type: 'image'
     });
   }
+
+  viewOnCalendar(){
+    
+  }
 }

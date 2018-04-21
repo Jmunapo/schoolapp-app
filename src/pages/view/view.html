@@ -21,10 +21,10 @@
     <ion-card>    
       <ion-card-content>
         <ion-card-title>
-          <h2 [innerHTML]="view_obj.post_title"></h2>
+          <h2 [innerHTML]="view_obj.title"></h2>
         </ion-card-title>
-        <p [innerHTML]="view_obj.post_content"></p>
-        <ion-note>Posted on {{ view_obj.post_modified | date: 'longDate' }}</ion-note>
+        <p [innerHTML]="view_obj.content"></p>
+        <ion-note>Posted on {{ view_obj.date | date: 'longDate' }}</ion-note>
       </ion-card-content>
       <ion-row no-padding>
         <ion-col col-6>

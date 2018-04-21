@@ -32,5 +32,8 @@ export class WoocommerceProvider {
   order(){
     return this.order_wc;
   }
+  getCategories() {
+    return 0;
+  }
 
 }

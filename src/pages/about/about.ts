@@ -18,4 +18,8 @@ export class AboutPage {
     console.log('ionViewDidLoad AboutPage');
   }
 
+  openLazly(){
+    this.navCtrl.push('SettingsPage');
+  }
+
 }

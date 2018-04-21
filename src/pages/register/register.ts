@@ -118,17 +118,17 @@ export class RegisterPage {
 
         }
       },
-      err => {
-        loader.dismiss();
-        console.log(err)
-        alert(JSON.stringify(err))
-        let toast = this.toaster.create({
-          message: err.error,
-          position: 'middle',
-          duration: 4000
-        });
-        toast.present();
-      })
+        err => {
+          loader.dismiss();
+          console.log(err)
+          alert(JSON.stringify(err))
+          let toast = this.toaster.create({
+            message: err.error,
+            position: 'middle',
+            duration: 4000
+          });
+          toast.present();
+        })
   }
 
 

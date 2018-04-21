@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { DatabaseProvider } from '../../providers/database/database';
-import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+import { DatabaseProvider } from '../../../providers/database/database';
+import { WoocommerceProvider } from '../../../providers/woocommerce/woocommerce';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
-import { TabsPage } from '../tabs/tabs';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
+@IonicPage()
 @Component({
   selector: 'page-shop-checkout',
   templateUrl: 'shop-checkout.html',
@@ -22,23 +23,23 @@ export class ShopCheckoutPage {
     public alertCtrl: AlertController,
     private WP: WoocommerceProvider,
     private database: DatabaseProvider,
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams) {
-      this.account = this.navParams.get('account');
-      console.log(this.account);
-      this.WooCommerce = WP.order();
-      console.log(this.WooCommerce);
+    this.account = this.navParams.get('account');
+    console.log(this.account);
+    this.WooCommerce = WP.order();
+    console.log(this.WooCommerce);
   }
 
   ionViewDidLoad() {
   }
 
-  place_order(){
+  place_order() {
 
-    if (this.order.address_1 && this.order.address_1 !== ''){
+    if (this.order.address_1 && this.order.address_1 !== '') {
       let data = {
-        payment_method: 'cod',
-        payment_method_title: 'Cash on Delivery',
+        payment_method: 'bacs',
+        payment_method_title: 'Direct Bank Transfer',
         set_paid: true,
         billing: {
           first_name: this.account.firstname,
@@ -85,21 +86,21 @@ export class ShopCheckoutPage {
 
         }
       })
-    }else{
+    } else {
       //Enter Your Address
       console.log('Enter Address');
     }
   }
-  post_order(data:any) {
+  post_order(data: any) {
     let loader = this.loader.create({
       content: 'Placing Order...',
       spinner: 'bubbles',
     });
     loader.present();
-    loader.onDidDismiss(()=>{
-      if (!this.order_placed){
+    loader.onDidDismiss(() => {
+      if (!this.order_placed) {
         console.log('Something went wrong');
-      }else{
+      } else {
         console.log('Done');
       }
     })
@@ -107,28 +108,31 @@ export class ShopCheckoutPage {
 
       let response = (JSON.parse(data.body));
       console.log(response);
-      if (response){
+      if (response.id) {
         this.order_placed = true;
         loader.dismiss();
         let order_number = response.number;
         this.alertCtrl.create({
           title: "Order Placed Successfully",
-          message: "Your order has been placed successfully. Your order number is "+order_number+' Updates will be sent to your phone',
+          message: "Your order has been placed successfully. Your order number is " + order_number + ' Updates will be sent to your phone',
           buttons: [{
             text: "OK",
             handler: () => {
-              this.database.removeData('cart').then(()=>{
+              this.database.removeData('cart').then(() => {
                 this.navCtrl.popAll();
               })
             }
           }]
         }).present();
+      }else{
+        console.log('Something went wrong contact store owner');
       }
 
-    }, err=>{
+    }, err => {
       console.log(err);
       loader.dismiss();
     })
   }
+
 
 }

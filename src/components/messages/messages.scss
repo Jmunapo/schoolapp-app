@@ -1,0 +1,16 @@
+messages {
+  .card-header {
+    background-color: map-get($colors, primary_b);
+    color: #fff;
+  }
+
+  .card-content {
+    padding: 0px 16px;
+    max-height: 0px;
+  }
+
+  .opened {
+    border-left: 5px solid rgb(66, 145, 169);
+    /* green */
+  }
+}

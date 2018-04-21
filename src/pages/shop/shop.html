@@ -13,17 +13,21 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content class="card-background-page">
-  <ion-card (tap)="open('Uniforms')">
-    <img src="assets/img/school_uniforms.png" />
-  </ion-card>
-  <ion-card (tap)="open('Bags')">
-    <img src="assets/img/school_bags.png" />
-  </ion-card>
-  <ion-card (tap)="open('Stationary')">
-    <img src="assets/img/stationary.png" />
-  </ion-card>
-  <ion-card (tap)="open('Accessories')">
-    <img src="assets/img/accessories.png" />
-  </ion-card>
+<ion-content>
+ <div style="text-align:center" *ngIf="!categoryReady">
+    <ion-spinner name="dots"></ion-spinner>
+    <p>Loading Categories</p>
+  </div>
+
+  <ion-list>
+    <ion-item  [@fadeInOut] *ngFor="let cat of categories" (tap)="open(cat.slug)">
+      <ion-thumbnail item-start>
+        <img [src]="cat.image" onerror="this.src='assets/img/cate.png';">
+      </ion-thumbnail>
+      <h2 class="cat-name"> {{cat.name}} </h2>
+      <ion-note item-end>
+        <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+  </ion-list>
 </ion-content>

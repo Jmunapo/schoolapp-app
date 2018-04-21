@@ -21,7 +21,8 @@ export class TabsPage {
   subdomain: string = ''; //school subdomain
   selected: string = ''; //School name
   messages: Array<any> = []; //messages from the server
-  tab1Root: any = MailPage;
+  //tab1Root: any = MailPage;
+  tab1Root: any = 'MessagesPage';
   tab2Root: any = HomePage;
   tab3Root: any = ShopPage;
   constructor(
@@ -50,7 +51,7 @@ export class TabsPage {
     this.database.getData('selected_school').then(v => {
       if (v) {
         console.log(v);
-        this.subdomain = v.subdomain;
+        this.subdomain = v.domain;
         this.selected = v.name;
         this.load_messages();
       }
